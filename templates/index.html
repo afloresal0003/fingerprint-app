@@ -14,44 +14,49 @@
    <div class="container">
       <h1 class="mt-5 mb-4 text-center">Minutiae Master</h1>
       <div class="row justify-content-center mt-4">
+         {% for card in homepage_card_info %}
          <div class="col-md-3">
             <div class="card h-100 text-center">
-               <a href="/learn_home" class="stretched-link"><img
-                     src="https://static.thenounproject.com/png/4365546-200.png" alt="Learn"></a>
+               {% if card.href == "/master_home" and not master_clickable%}
+               <img src="{{ card.card_image }}" alt="{{ card.card_title }}">
                <div class="card-body">
-                  <a href="/learn_home" class="stretched-link">
-                     <h5 class="card-title">LEARN</h5>
-                  </a>
-                  <p class="card-text">Learn fingerprint patterns and minutiae</p>
+                  <h5 class="card-title">{{ card.card_title }}</h5>
+                  <p class="card-text">{{ card.card_description }}</p>
                </div>
+               {% elif card.href == "/master_home" and  master_clickable%}
+               <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+               <div class="card-body">
+                  <a href="{{ card.href }}" class="stretched-link">
+                     <h5 class="card-title">{{ card.card_title }}</h5>
+                  </a>
+                  <p class="card-text">{{ card.card_description }}</p>
+               </div>
+               {% elif card.href == "/solve_home" and not solve_clickable%}
+               <img src="{{ card.card_image }}" alt="{{ card.card_title }}">
+               <div class="card-body ">
+                  <h5 class="card-title">{{ card.card_title }}</h5>
+                  <p class="card-text">{{ card.card_description }}</p>
+               </div>
+               {% elif card.href == "/solve_home" and solve_clickable%}
+               <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+               <div class="card-body ">
+                  <a href="{{ card.href }}" class="stretched-link">
+                     <h5 class="card-title">{{ card.card_title }}</h5>
+                  </a>
+                  <p class="card-text">{{ card.card_description }}</p>
+               </div>
+               {% else %}
+               <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+               <div class="card-body {% if learn_green %}border-success{% endif %}">
+                  <a href="{{ card.href }}" class="stretched-link">
+                     <h5 class="card-title">{{ card.card_title }}</h5>
+                  </a>
+                  <p class="card-text">{{ card.card_description }}</p>
+               </div>
+               {% endif %}
             </div>
          </div>
-         <div class="col-md-3">
-            <div class="card h-100 text-center">
-               <a href="/master_home" class="stretched-link"><img
-                     src="https://static.thenounproject.com/png/3241393-200.png" alt="Master"></a>
-               <div class="card-body">
-                  <a href="/master_home" class="stretched-link">
-                     <h5 class="card-title">MASTER</h5>
-                  </a>
-                  <p class="card-text">Test your knowledge!<br>Mastery quizzes unlocked after learning a concept</p>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="card h-100 text-center">
-               <a href="/solve_home" class="stretched-link"><img
-                     src="https://cdn.icon-icons.com/icons2/3079/PNG/512/detective_crime_man_persona_vatar_icon_191245.png"
-                     alt="Solve"></a>
-               <div class="card-body">
-                  <a href="/solve_home" class="stretched-link">
-                     <h5 class="card-title">SOLVE</h5>
-                  </a>
-                  <p class="card-text">Use what you learned to crack the case!<br>Unlocks after perfect scores in MASTER
-                  </p>
-               </div>
-            </div>
-         </div>
+         {% endfor %}
       </div>
    </div>
 
