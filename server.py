@@ -44,19 +44,24 @@ homepage_card_info = [
 
 @app.route('/')
 def index():
-    master_clickable = visited_routes['learn_patterns'] or visited_routes['learn_minutiae']
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     learn_green = visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls'] and visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending']
     solve_clickable = mastered_concepts['patterns'] and mastered_concepts['minutiae']
     return render_template('index.html', homepage_card_info=homepage_card_info, master_clickable=master_clickable, learn_green=learn_green, solve_clickable=solve_clickable)
 
 @app.route('/learn_home')
 def learn_home():
-    return render_template('learn_home.html')
+    patterns_green = visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']
+    minutiae_green = visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending']
+    return render_template('learn_home.html', patterns_green=patterns_green, minutiae_green=minutiae_green)
 
 @app.route('/learn_patterns')
 def learn_patterns():
     visited_routes['learn_patterns'] = True
-    return render_template('learn_patterns.html')
+    loops_green = visited_routes['learn_loops']
+    arches_green = visited_routes['learn_arches']
+    whorls_green = visited_routes['learn_whorls']
+    return render_template('learn_patterns.html', loops_green=loops_green, arches_green=arches_green, whorls_green=whorls_green)
 
 @app.route('/learn_loops')
 def learn_loops():
@@ -76,7 +81,11 @@ def learn_arches():
 @app.route('/learn_minutiae')
 def learn_minutiae():
     visited_routes['learn_minutiae'] = True
-    return render_template('learn_minutiae.html')
+    bifurcation_green = visited_routes['learn_bifurcation']
+    spur_green = visited_routes['learn_spur']
+    island_green = visited_routes['learn_island']
+    ending_green = visited_routes['learn_ridge_ending']
+    return render_template('learn_minutiae.html', bifurcation_green=bifurcation_green, spur_green=spur_green, island_green=island_green, ending_green=ending_green)
 
 @app.route('/learn_bifurcation')
 def learn_bifurcation():

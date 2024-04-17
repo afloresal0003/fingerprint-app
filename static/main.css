@@ -11,3 +11,7 @@
    width: 60%;
    height: 170px;
 }
+
+.green-outline {
+   border: 3.5px solid #28a745;
+}

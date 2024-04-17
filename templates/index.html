@@ -16,7 +16,7 @@
       <div class="row justify-content-center mt-4">
          {% for card in homepage_card_info %}
          <div class="col-md-3">
-            <div class="card h-100 text-center">
+            <div class="card h-100 text-center {% if learn_green and card.href == '/learn_home'%}green-outline{% endif %}">
                {% if card.href == "/master_home" and not master_clickable%}
                <img src="{{ card.card_image }}" alt="{{ card.card_title }}">
                <div class="card-body">
@@ -47,7 +47,7 @@
                </div>
                {% else %}
                <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
-               <div class="card-body {% if learn_green %}border-success{% endif %}">
+               <div class="card-body">
                   <a href="{{ card.href }}" class="stretched-link">
                      <h5 class="card-title">{{ card.card_title }}</h5>
                   </a>
