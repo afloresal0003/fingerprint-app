@@ -1,0 +1,51 @@
+.carousel-inner img {
+   width: 20%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+   background-color: transparent;
+   border: 2px solid black;
+}
+
+.carousel-control-prev-icon:before {
+   content: '';
+   display: inline-block;
+   border-top: 10px solid transparent;
+   border-bottom: 10px solid transparent;
+   border-left: none;
+   border-right: 10px solid black;
+   width: 0;
+   height: 0;
+}
+
+.carousel-control-next-icon:before {
+   content: '';
+   display: inline-block;
+   border-top: 10px solid transparent;
+   border-bottom: 10px solid transparent;
+   width: 0;
+   height: 0;
+   border-left: 10px solid black;
+   border-right: none;
+}
+
+/* .carousel-item img {
+   transition: transform 0.3s ease;
+}
+
+.carousel-item:hover img {
+   transform: scale(3.1);
+} */
+
+.image-zoom-container {
+   overflow: hidden;
+}
+
+.image-zoom {
+   transition: transform 0.5s ease;
+}
+
+.image-zoom:hover {
+   transform: scale(1.6);
+}
