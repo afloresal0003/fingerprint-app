@@ -1,60 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="./static/main.css">
+<h1 class="mt-5 mb-4 text-center">LEARN: PATTERNS</h1>
+<p class="text-center">Let's start off with learning about fingerprint <strong>patterns</strong>.</p>
+<p class="text-center">Click on a pattern group below to learn about each kind of pattern!</p>
 
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>LEARN: PATTERNS</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   <link rel="stylesheet" href="./static/main.css">
-</head>
-
-<body>
-
-   <div class="container">
-      <h1 class="mt-5 mb-4 text-center">LEARN: PATTERNS</h1>
-      <p class="text-center">Let's start off with learning about fingerprint <strong>patterns</strong>.</p>
-      <p class="text-center">Click on a pattern group below to learn more about the kinds of patterns!</p>
-
-      <div class="row justify-content-center">
-         <div class="col-md-4">
-            <div class="card text-center {% if loops_green%}green-outline{% endif %}">
-               <a href="/learn_loops" class="stretched-link"><img
-                  src="https://lawrencerook.com/wp-content/uploads/2013/03/ulnar-1.jpg"
-                  class="card-img-top" alt="Loops"></a>
-               <div class="card-body">
-                  <a href="/learn_loops" class="stretched-link"><h5 class="card-title">Loops</h5></a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4">
-            <div class="card text-center {% if arches_green%}green-outline{% endif %}">
-               <a href="/learn_arches" class="stretched-link"><img src="https://lawrencerook.com/wp-content/uploads/2013/03/tented-arch-1.jpg" class="card-img-top" alt="Arches"></a>
-               <div class="card-body">
-                  <a href="/learn_arches" class="stretched-link"><h5 class="card-title">Arches</h5></a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4">
-            <div class="card text-center {% if whorls_green%}green-outline{% endif %}">
-               <a href="/learn_whorls" class="stretched-link"><img src="https://accessdl.state.al.us/AventaCourses/access_courses/forensic_sci_ua_v17/03_unit/03-01/images/plain_whorl%20(2).jpg" class="card-img-top" alt="Whorls"></a>
-               <div class="card-body">
-                  <a href="/learn_whorls" class="stretched-link"><h5 class="card-title">Whorls</h5></a>
-               </div>
-            </div>
-         </div>
-      </div>
-
-      <p class="text-center mt-4">Think you know it all? Head to <strong>MASTER: PATTERNS</strong> to prove it!</p>
-
-      <div class="row justify-content-center mt-3">
-         <div class="col-md-6 text-center">
-            <a href="/" class="btn btn-primary mr-3">HOME</a>
-            <a href="/master_patterns_home" class="btn btn-primary">MASTER</a>
+<div class="row justify-content-center mt-4">
+   <div class="col-md-4">
+      <div class="card hover-active-no-color text-center {% if loops_green%}green-outline{% endif %}">
+         <a href="/learn_loops" class="stretched-link"><img
+            src="https://clipart-library.com/images/8i65bnx5T.png"
+            class="card-img-top" alt="Loops"></a>
+         <div class="card-body">
+            <a href="/learn_loops" class="stretched-link"><h5 class="card-title">Loops</h5></a>
          </div>
       </div>
    </div>
+   <div class="col-md-4">
+      <div class="card hover-active-no-color text-center {% if arches_green%}green-outline{% endif %}">
+         <a href="/learn_arches" class="stretched-link"><img src="https://lawrencerook.com/wp-content/uploads/2013/03/tented-arch-1.jpg" class="card-img-top" alt="Arches"></a>
+         <div class="card-body">
+            <a href="/learn_arches" class="stretched-link"><h5 class="card-title">Arches</h5></a>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-4">
+      <div class="card hover-active-no-color text-center {% if whorls_green%}green-outline{% endif %}">
+         <a href="/learn_whorls" class="stretched-link"><img src="https://accessdl.state.al.us/AventaCourses/access_courses/forensic_sci_ua_v17/03_unit/03-01/images/plain_whorl%20(2).jpg" class="card-img-top" alt="Whorls"></a>
+         <div class="card-body">
+            <a href="/learn_whorls" class="stretched-link"><h5 class="card-title">Whorls</h5></a>
+         </div>
+      </div>
+   </div>
+</div>
 
-</body>
+<p class="text-center mt-4">Think you know it all? Head to <strong>MASTER: PATTERNS</strong> to prove it!</p>
 
-</html>
+<div class="row justify-content-center mt-3">
+   <div class="col-md-6 text-center">
+      <a href="/" class="btn btn-base mr-3">HOME</a>
+      {% if (loops_green and arches_green and whorls_green)%}
+      <a href="/master_patterns_home" class="btn btn-accent">MASTER</a>
+      {% else %}
+      <a class="btn btn-base">MASTER</a>
+      {% endif %}
+   </div>
+</div>
+{% endblock %}

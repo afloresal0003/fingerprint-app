@@ -1,3 +1,20 @@
+body {
+   font-family: Georgia;
+}
+
+nav {
+   background-color: #EFEFEF;
+   border: 1px solid rgb(28, 28, 28);
+}
+a {
+   color: black;
+   /* Default color */
+}
+
+a:hover {
+   color: black;
+   /* Color on hover */
+}
 .carousel-inner img {
    width: 20%;
 }
@@ -5,7 +22,6 @@
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
    background-color: transparent;
-   border: 2px solid black;
 }
 
 .carousel-control-prev-icon:before {
@@ -13,10 +29,7 @@
    display: inline-block;
    border-top: 10px solid transparent;
    border-bottom: 10px solid transparent;
-   border-left: none;
    border-right: 10px solid black;
-   width: 0;
-   height: 0;
 }
 
 .carousel-control-next-icon:before {
@@ -24,15 +37,31 @@
    display: inline-block;
    border-top: 10px solid transparent;
    border-bottom: 10px solid transparent;
-   width: 0;
-   height: 0;
    border-left: 10px solid black;
-   border-right: none;
+}
+
+
+/* .carousel-control-prev-icon {
+   background-image: url('https://icons.veryicon.com/png/o/miscellaneous/small-face-icon/left-arrow-28.png');
+}
+
+.carousel-control-next-icon {
+   background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath d="M14 6l1.41 1.41L7.83 13H26v4H7.83l7.58 7.59L14 24l-10-10L14 6z"/%3E%3C/svg%3E');
+} */
+
+/* Hide carousel indicators */
+.carousel-indicators {
+   display: none;
+}
+.carousel-item {
+   height: 400px;
+   /* Set a fixed height for the carousel items */
 }
 
 /* .carousel-item img {
    transition: transform 0.3s ease;
 }
+
 
 .carousel-item:hover img {
    transform: scale(3.1);
@@ -48,4 +77,14 @@
 
 .image-zoom:hover {
    transform: scale(1.6);
+}
+
+.btn-accent {
+   background-color: #FCE5CD;
+   border: 1px solid rgb(28, 28, 28);
+}
+
+.btn-base {
+   background-color: white;
+   border: 1px solid rgb(28, 28, 28);
 }

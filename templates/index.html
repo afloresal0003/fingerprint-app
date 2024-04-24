@@ -1,65 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Minutiae Master</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   <link rel="stylesheet" href="./static/main.css">
-</head>
-
-<body>
-
-   <div class="container">
-      <h1 class="mt-5 mb-4 text-center">Minutiae Master</h1>
-      <div class="row justify-content-center mt-4">
-         {% for card in homepage_card_info %}
-         <div class="col-md-3">
-            <div class="card h-100 text-center {% if learn_green and card.href == '/learn_home'%}green-outline{% endif %}">
-               {% if card.href == "/master_home" and not master_clickable%}
-               <img src="{{ card.card_image }}" alt="{{ card.card_title }}">
-               <div class="card-body">
-                  <h5 class="card-title">{{ card.card_title }}</h5>
-                  <p class="card-text">{{ card.card_description }}</p>
-               </div>
-               {% elif card.href == "/master_home" and  master_clickable%}
-               <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
-               <div class="card-body">
-                  <a href="{{ card.href }}" class="stretched-link">
-                     <h5 class="card-title">{{ card.card_title }}</h5>
-                  </a>
-                  <p class="card-text">{{ card.card_description }}</p>
-               </div>
-               {% elif card.href == "/solve_home" and not solve_clickable%}
-               <img src="{{ card.card_image }}" alt="{{ card.card_title }}">
-               <div class="card-body ">
-                  <h5 class="card-title">{{ card.card_title }}</h5>
-                  <p class="card-text">{{ card.card_description }}</p>
-               </div>
-               {% elif card.href == "/solve_home" and solve_clickable%}
-               <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
-               <div class="card-body ">
-                  <a href="{{ card.href }}" class="stretched-link">
-                     <h5 class="card-title">{{ card.card_title }}</h5>
-                  </a>
-                  <p class="card-text">{{ card.card_description }}</p>
-               </div>
-               {% else %}
-               <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
-               <div class="card-body">
-                  <a href="{{ card.href }}" class="stretched-link">
-                     <h5 class="card-title">{{ card.card_title }}</h5>
-                  </a>
-                  <p class="card-text">{{ card.card_description }}</p>
-               </div>
-               {% endif %}
-            </div>
+{% extends 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="./static/main.css">
+<h1 class="mt-5 mb-4 text-center title">Minutiae Master</h1>
+<br>
+<div class="row justify-content-center mt-4">
+   {% for card in homepage_card_info %}
+   <div class="col-md-3">
+      {% if (card.href == "/master_home" and not master_clickable) or (card.href == "/solve_home" and not solve_clickable)%}
+      <div class="card h-100 text-center card-locked">
+      {% else %}
+      <div class="card hover-active h-100 text-center {% if learn_green and card.href == '/learn_home'%}green-outline{% endif %}">
+      {% endif %}
+         {% if card.href == "/master_home" and not master_clickable%}
+         <a class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+         <div class="card-body">
+            <h5 class="card-title">{{ card.card_title }}</h5>
+            <p class="card-text">{{ card.card_description }}</p>
+            <br>
+            <p class="card-subtext">{{ card.card_context }}</p>
          </div>
-         {% endfor %}
+         {% elif card.href == "/solve_home" and not solve_clickable%}
+         <a class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+         <div class="card-body">
+            <h5 class="card-title">{{ card.card_title }}</h5>
+            <p class="card-text">{{ card.card_description }}</p>
+            <br>
+            <p class="card-subtext">{{ card.card_context }}</p>
+         </div>
+         {% else %}
+         <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+         <div class="card-body">
+            <a href="{{ card.href }}" class="stretched-link">
+               <h5 class="card-title">{{ card.card_title }}</h5>
+            </a>
+            <p class="card-text">{{ card.card_description }}</p>
+            <br>
+            <p class="card-subtext">{{ card.card_context }}</p>
+         </div>
+         {% endif %}
       </div>
    </div>
-
-</body>
-
-</html>
+   {% endfor %}
+</div>
+{% endblock %}
