@@ -1,71 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="./static/main.css">
+<h1 class="mt-5 mb-4 text-center">LEARN: MINUTIAE</h1>
+<p class="text-center">Let's start off with learning about fingerprint <strong>minutiae</strong>. Minutiae refers
+   to the unique and precise details within a fingerprint pattern.</p>
+<p class="text-center">Click on a kind of minutiae below to learn more about it!</p>
 
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>LEARN: MINUTIAE</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   <link rel="stylesheet" href="./static/main.css">
-</head>
-
-<body>
-
-   <div class="container">
-      <h1 class="mt-5 mb-4 text-center"><strong>LEARN: MINUTIAE</strong></h1>
-      <p class="text-center">Let's start off with learning about fingerprint <strong>minutiae</strong>. Minutiae refers
-         to the unique and precise details within a fingerprint pattern.</p>
-      <p class="text-center">Click on a kind of minutiae below to learn more about it!</p>
-
-      <div class="row justify-content-center mt-4">
-         <div class="col-md-3">
-            <div class="card text-center {% if bifurcation_green%}green-outline{% endif %}">
-               <a href="/learn_bifurcation" class="stretched-link"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAgsX24M-2Hw85lyzE9x_p2wPl_uhtClGg78L9LhYJQkjI52HppgicN-kIk32JReDerSY&usqp=CAU" class="card-img-top" alt="Bifurcation"></a>
-               <div class="card-body">
-                  <a href="/learn_bifurcation" class="stretched-link"><h5 class="card-title">Bifurcation</h5></a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="card text-center {% if spur_green%}green-outline{% endif %}">
-               <a href="/learn_spur" class="stretched-link"><img
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb0mgfeLbxWwy4AoLBBB6L1HPMapJUSC56OKeN5WTAQfiZERw-K5t6Ezrt_zrb0mTNwhA&usqp=CAU"
-                     class="card-img-top" alt="Spur"></a>
-               <div class="card-body">
-                  <a href="/learn_spur" class="stretched-link">
-                     <h5 class="card-title">Spur</h5>
-                  </a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="card text-center {% if island_green%}green-outline{% endif %}">
-               <a href="/learn_island" class="stretched-link"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSngY2sKhQzzb22j1fDVLZmzQ-kzPz15YpkU3Fodod61w_zOPSCyiaAoB-Cczr25IW_eJg&usqp=CAU" class="card-img-top" alt="Island"></a>
-               <div class="card-body">
-                  <a href="/learn_island" class="stretched-link"><h5 class="card-title">Island</h5></a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-3">
-            <div class="card text-center {% if ending_green%}green-outline{% endif %}">
-               <a href="/learn_ridge_ending" class="stretched-link"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ51qp_FoKa4jL_1Wqou0HrGG7L-3OL-A2BBk-mEYBU9swDEa_BqMoPcKUrSsr71761vi4&usqp=CAU" class="card-img-top" alt="Ridge Ending"></a>
-               <div class="card-body">
-                  <a href="/learn_ridge_ending" class="stretched-link"><h5 class="card-title">Ridge Ending</h5></a>
-               </div>
-            </div>
-         </div>
-      </div>
-
-      <p class="text-center mt-4">Think you know it all? Head to <strong>MASTER: MINUTIAE</strong> to prove it!</p>
-
-      <div class="row justify-content-center mt-4">
-         <div class="col-md-6 text-center">
-            <a href="/" class="btn btn-primary mr-2">HOME</a>
-            <a href="/master_minutiae_home" class="btn btn-primary">MASTER</a>
+<div class="row justify-content-center mt-4">
+   <div class="col-md-3">
+      <div class="card text-center {% if bifurcation_green%}green-outline{% endif %}">
+         <a href="/learn_bifurcation" class="stretched-link"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAgsX24M-2Hw85lyzE9x_p2wPl_uhtClGg78L9LhYJQkjI52HppgicN-kIk32JReDerSY&usqp=CAU" class="card-img-top" alt="Bifurcation"></a>
+         <div class="card-body">
+            <a href="/learn_bifurcation" class="stretched-link"><h5 class="card-title">Bifurcation</h5></a>
          </div>
       </div>
    </div>
+   <div class="col-md-3">
+      <div class="card text-center {% if spur_green%}green-outline{% endif %}">
+         <a href="/learn_spur" class="stretched-link"><img
+               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb0mgfeLbxWwy4AoLBBB6L1HPMapJUSC56OKeN5WTAQfiZERw-K5t6Ezrt_zrb0mTNwhA&usqp=CAU"
+               class="card-img-top" alt="Spur"></a>
+         <div class="card-body">
+            <a href="/learn_spur" class="stretched-link">
+               <h5 class="card-title">Spur</h5>
+            </a>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-3">
+      <div class="card text-center {% if island_green%}green-outline{% endif %}">
+         <a href="/learn_island" class="stretched-link"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSngY2sKhQzzb22j1fDVLZmzQ-kzPz15YpkU3Fodod61w_zOPSCyiaAoB-Cczr25IW_eJg&usqp=CAU" class="card-img-top" alt="Island"></a>
+         <div class="card-body">
+            <a href="/learn_island" class="stretched-link"><h5 class="card-title">Island</h5></a>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-3">
+      <div class="card text-center {% if ending_green%}green-outline{% endif %}">
+         <a href="/learn_ridge_ending" class="stretched-link"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ51qp_FoKa4jL_1Wqou0HrGG7L-3OL-A2BBk-mEYBU9swDEa_BqMoPcKUrSsr71761vi4&usqp=CAU" class="card-img-top" alt="Ridge Ending"></a>
+         <div class="card-body">
+            <a href="/learn_ridge_ending" class="stretched-link"><h5 class="card-title">Ridge Ending</h5></a>
+         </div>
+      </div>
+   </div>
+</div>
 
-</body>
+<p class="text-center mt-4">Finished learning? Head to <strong>MASTER</strong> below to prove it!</p>
 
-</html>
+<div class="row justify-content-center mt-4">
+   <div class="col-md-6 text-center">
+      <a href="/learn_home" class="btn btn-base mr-2">BACK</a>
+      {% if (bifurcation_green and spur_green and island_green and ending_green)%}
+      <a href="/master_minutiae_home" class="btn btn-accent">MASTER</a>
+      {% else %}
+      <a class="btn btn-locked">MASTER</a>
+      {% endif %}
+   </div>
+</div>
+{% endblock %}

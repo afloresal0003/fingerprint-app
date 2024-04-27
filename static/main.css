@@ -64,3 +64,8 @@ a:hover {
    background-color: white;
    border: 1px solid rgb(28, 28, 28);
 }
+.btn-locked {
+   background-color: #999999;
+   color: white;
+   border: 1px solid rgb(28, 28, 28);
+}

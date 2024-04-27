@@ -1,0 +1,27 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="./static/main.css">
+<h1 class="mt-5 mb-4 text-center">{{ data.module_title }}</h1>
+<p class="text-center">{{ data.module_description }}</p>
+<div class="row justify-content-center mt-4">
+   {% for card in data.card_info %}
+   <div class="col-md-3">
+      <div
+         class="card hover-active text-center {% if card.card_title == 'Patterns' and patterns_green %}green-outline{% elif card.card_title == 'Minutiae' and minutiae_green %}green-outline{% endif %}">
+         <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}"
+               alt="{{ card.card_title }}"></a>
+         <div class="card-body">
+            <a href="{{ card.href }}" class="stretched-link">
+               <h5 class="card-title">{{ card.card_title }}</h5>
+            </a>
+         </div>
+      </div>
+   </div>
+   {% endfor %}
+</div>
+<div class="row justify-content-center mt-4">
+   <div class="col-md-6 text-center">
+      <a href="/" class="btn btn-accent">BACK</a>
+   </div>
+</div>
+{% endblock %}

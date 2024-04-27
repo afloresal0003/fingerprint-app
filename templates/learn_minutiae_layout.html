@@ -1,0 +1,41 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="./static/learn.css">
+<script src="./static/learn.js"></script>
+<h1 class="mt-5 mb-4 text-center"><strong>{{ data.minutiae_title }}</strong></h1>
+
+<div id="{{ data.minutiae_title }}Carousel" class="carousel slide" data-ride="carousel">
+   <div class="carousel-inner">
+      {% for image in data.minutiae_images %}
+      <div class="carousel-item {% if loop.first %}active{% endif %} image-zoom-container">
+         <img src="{{ image }}" class="d-block mx-auto img-fluid image-zoom" alt="{{ data.minutiae_title }} Image {{ loop.index }}">
+      </div>
+      {% endfor %}
+   </div>
+   <a class="carousel-control-prev" href="#{{ data.minutiae_title }}Carousel" role="button"
+      data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+   </a>
+   <a class="carousel-control-next" href="#{{ data.minutiae_title }}Carousel" role="button"
+      data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+   </a>
+</div>
+
+<p class="text-center mt-3">{{ data.minutiae_description }}</p>
+
+<div class="row justify-content-center mt-4">
+   <div class="col-md-6 text-center">
+      <a href="{{ data.prev_href }}" class="btn btn-base mr-2">BACK</a>
+      <a href="{{ data.next_href }}" class="btn btn-accent">{{ data.next_minutiae
+         }}</a>
+   </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}
