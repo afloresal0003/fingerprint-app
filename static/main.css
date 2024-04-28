@@ -69,3 +69,23 @@ a:hover {
    color: white;
    border: 1px solid rgb(28, 28, 28);
 }
+
+button:hover{
+   background-color: #FCE5CD;
+}
+.button-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   /* Adjust the gap between buttons */
+}
+
+.custom-button {
+   width: 200px;
+   /* Set the desired width for all buttons */
+   white-space: normal;
+   /* Allow text to wrap within the button */
+   margin-right: 10px;
+   /* Adjust the right margin to control the gap between buttons */
+   margin-bottom: 10px;
+}

@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>App Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="quiz.js"></script>
-    <link rel="stylesheet" href="quiz.css">
-</head>
-<body>
-    <div class="container">
-        <h1 id="questionTitle">Fingerprint Recognition App</h1>
-        <div class="row">
-            <div class="col-md-12">
-                <input type="text" id="questionInput" placeholder="Question" disabled>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <img id="questionImage" src="" alt="Image">
-            </div>
-        </div>
-        <div id="answers" class="row">
-            <!-- Answer buttons will be inserted here -->
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <button id="nextButton" class="btn btn-primary">Next Question</button>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+<html lang="en">
 
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>MASTER: PATTERNS</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../static/main.css">
+</head>
+
+<body>
+   <div class="container">
+      <h1 class="mt-5 mb-4 text-center"><strong>MASTER: PATTERNS</strong></h1>
+
+      <div class="text-center mb-3">
+         <h3>{{ quiz_data['id'] }}. {{ quiz_data['question'] }}</h3>
+      </div>
+
+      <div class="row justify-content-center">
+         <div class="col-md-4 text-center">
+            <img src="{{ quiz_data['image'] }}" class="img-fluid" alt="Pattern Image">
+         </div>
+      </div>
+
+      <div class="row justify-content-center mt-4">
+         <div class="col-md-9 text-center">
+            <form method="POST" action="/check_answer">
+               {% for option in quiz_data['options'] %}
+               <button class="btn btn-base custom-button" type="submit" name="answer" value="{{ option }}" >{{ option }}</button>
+               {% endfor %}
+            </form>
+         </div>
+      </div>
+   </div>
+
+   <div class="row justify-content-center mt-4">
+      <div class="col-md-6 text-center">
+         <a href="{{ quiz_data['next-path'] }}" class="btn btn-base">GO</a>
+      </div>
+   </div>
+
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

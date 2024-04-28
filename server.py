@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 
@@ -58,7 +58,7 @@ learn_loops_info = {
       {
          "subtype_title": "Double Loop",
          "subtype_images": ["https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/finger-print-double-loop-whorl-vcnw.jpg", 
-                     "https://assets-global.website-files.com/61845f7929f5aa517ebab941/64081cef3ef911d8f8d87126_7)%20Double%20loop.jpg", 
+                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVwj4GKqUhfbVWzVh5sDZ79JsKB2RZfqYkFqTpYI0aNw&s", 
                      "https://i.pinimg.com/originals/89/96/50/899650117c470b303c2efcd5f0cd2325.gif"],
          "subtype_description": "A double loop, in contrast, exhibits two separate loop formations within the fingerprint, often with ridges curving in opposite directions."
       }],
@@ -190,59 +190,73 @@ master_homepage_info = {
 
 master_patterns_transition_info = {
     "quiz_title": "MASTER: PATTERNS",
-    "quiz_description": "Get ready! Each question is timed. Make sure to get a perfect score for mastery on this concept.",
-    "go_href": "/master_patterns/<int:question_id>"
+    "quiz_description": "Get ready! There are 7 questions. Each question is timed. Make sure to get a perfect score for mastery on this concept. You will not be able to exit the quiz once started!",
+    "go_href": "/quiz_pattern/1"
 }
 
 master_minutiae_transition_info = {
     "quiz_title": "MASTER: MINUTIAE",
-    "quiz_description": "Get ready! Each question is timed. Make sure to get a perfect score for mastery on this concept.",
-    "go_href": "/master_minutiae/<int:question_id>"
+    "quiz_description": "Get ready! There are 4 questions. Each question is timed. Make sure to get a perfect score for mastery on this concept. You will not be able to exit the quiz once started!",
+    "go_href": "/quiz_minutiae/1"
 }
 
 pattern_questions = {
 
     "1": {
         "id": "1",
-        "image": "https://www.google.com",
+        "image": "../static/central.png",
         "question": "What pattern is this?",
-        "options": ["Plain Whorl", "Tented Arch", "Central Pocket Whorl"]
+        "options": ["Plain Whorl", "Tented Arch", "Central Pocket Whorl"],
+        "answer": "Central Pocket Whorl",
+        "next-path": "/quiz_pattern/2"
     },
     "2": {
         "id": "2",
-        "image": "https://www.google.com",
+        "image": "https://academyofhandanalysis.org/wp-content/uploads/2010/08/T_arch11-150x150.jpg",
         "question": "What pattern is this?",
-        "options": ["Plain Arch", "Tented Arch", "Plain Loop"]
+        "options": ["Plain Arch", "Tented Arch", "Plain Loop"],
+        "answer": "Tented Arch",
+        "next-path": "/quiz_pattern/3"
     },
     "3": {
         "id": "3",
-        "image": "https://www.google.com",
+        "image": "https://1.bp.blogspot.com/-FLrixNxiK0s/XfCiYFaCV4I/AAAAAAAAWJQ/lMp7-jeRkIoyKkJaXIJAI4yM5x3vA3_igCLcBGAsYHQ/s320/Picture1.png",
         "question": "What pattern is this?",
-        "options": ["Accidental Whorl", "Double Loop", "Central Pocket Whorl"]
+        "options": ["Accidental Whorl", "Double Loop", "Central Pocket Whorl"],
+        "answer": "Double Loop",
+        "next-path": "/quiz_pattern/4"
     },
     "4": {
         "id": "4",
-        "image": "https://www.google.com",
+        "image": "../static/accidental-whorl.png",
         "question": "What pattern is this?",
-        "options": ["Plain Whorl", "Central Pocket Whorl", "Accidental Whorl"]
+        "options": ["Plain Whorl", "Central Pocket Whorl", "Accidental Whorl"],
+        "answer": "Accidental Whorl",
+        "next-path": "/quiz_pattern/5"
     },
     "5": {
         "id": "5",
-        "image": "https://www.google.com",
+        "image": "../static/plain-arch.png",
         "question": "What pattern is this?",
-        "options": ["Plain Arch", "Plain Loop", "Plain Whorl"]
+        "options": ["Plain Arch", "Plain Loop", "Plain Whorl"],
+        "answer": "Plain Arch",
+        "next-path": "/quiz_pattern/6"
     },
     "6": {
         "id": "6",
-        "image": "https://www.google.com",
+        "image": "../static/plain-whorl.png",
         "question": "What pattern is this?",
-        "options": ["Plain Whorl", "Central Pocket Whorl", "Double Loop"]
+        "options": ["Plain Whorl", "Central Pocket Whorl", "Double Loop"],
+        "answer": "Plain Whorl",
+        "next-path": "/quiz_pattern/7"
     },
     "7": {
         "id": "7",
-        "image": "https://www.google.com",
+        "image": "https://www.researchgate.net/publication/228359468/figure/fig3/AS:301955273510913@1449003155146/Fingerprint-ridges-showing-a-loop-pattern-19.png",
         "question": "What pattern is this?",
-        "options": ["Plain Whorl", "Plain Loop", "Central Pocket Whorl"]
+        "options": ["Plain Whorl", "Plain Loop", "Central Pocket Whorl"],
+        "answer": "Plain Loop",
+        "next-path": "/quiz_results"
     }
 
 }
@@ -251,40 +265,42 @@ minutiae_questions = {
 
     "1": {
         "id": "1",
-        "image": "https://www.google.com",
-        "question": "How many bifurcations are in the bottom right quadrant of this fingerprint?",
-        "options": ["2", "5", "3"]
+        "image": "./static/minutiae_quiz_q1.png",
+        "question": "How many bifurcations are in this fingerprint?",
+        "answer": "5"
     },
     "2": {
         "id": "2",
-        "image": "https://www.google.com",
-        "question": "Name all minutiae present in top left corner of this fingerprint.",
-        "answers": ["Bifurcation", "Ridge Ending", "Island"]
+        "image": "./static/minutiae_quiz_q2.png",
+        "question": "Name 3 minutiae present in this fingerprint.",
+        "answer": ["bifurcation", "ridge ending", "island"]
     },
     "3": {
         "id": "3",
-        "image": "https://www.google.com",
+        "image": "./static/minutiae_quiz_q3.png",
         "question": "Label all letters with the appropriate minutiae.",
-        "A": "Ridge Ending",
-        "B": "Island",
-        "C": "Spur",
-        "D": "Bifurcation",
-        "E": "Island",
-        "F": "Bifurcation",
-        "G": "Spur"
+        "answer": {
+            "A": "ridge ending",
+            "B": "island",
+            "C": "spur",
+            "D": "bifurcation",
+            "E": "island",
+            "F": "bifurcation",
+            "G": "spur"
+        }
     },
     "4": {
         "id": "4",
-        "image": "https://www.google.com",
-        "question": "What pattern is this?",
-        "single_answer": "spur"
+        "image": "./static/minutiae_quiz_q4.png",
+        "question": "What minutiae is this?",
+        "answer": "spur"
     }
 
 }
 
-pattern_answers = [0, 0, 0, 0, 0, 0, 0] # 0 = incorrect, 1 = correct
+user_pattern_results = [0, 0, 0, 0, 0, 0, 0] # 0 = incorrect, 1 = correct
 
-minutiae_answers = [0, 0, 0, 0] # 0 = incorrect, 1 = correct
+user_minutiae_results = [0, 0, 0, 0] # 0 = incorrect, 1 = correct
 
 @app.route('/')
 def index():
@@ -363,14 +379,18 @@ def master_patterns_home():
 def master_minutiae_home():
     return render_template('master_transition_screen.html', data=master_minutiae_transition_info)
 
-@app.route('/solve_home')
-def solve_home():
-    return render_template('solve_home.html')
+# @app.route('/solve_home')
+# def solve_home():
+#     return render_template('solve_home.html')
 
-@app.route('/quiz_pattern/<question_num>')
+@app.route('/quiz_pattern/<int:question_num>')
 def quiz_pattern(question_num):
-    pattern_question = pattern_questions[str(question_num)]
-    return render_template('quiz_pattern.html', quiz_question=pattern_question)
+    if str(question_num) in pattern_questions:
+        pattern_question = pattern_questions[str(question_num)]
+        return render_template('quiz_pattern.html', quiz_data=pattern_question)
+    else:
+        # Handle invalid question numbers
+        return "Question not found"
 
 #ADD POST INFORMATION TO RECEIVE WHETHER THE ANSWER IS CORRECT OR NOT
 
