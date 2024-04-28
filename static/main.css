@@ -89,3 +89,23 @@ button:hover{
    /* Adjust the right margin to control the gap between buttons */
    margin-bottom: 10px;
 }
+
+.incorrect {
+   /* border-color: red !important; */
+   border: 3px solid red !important;
+   /* Change the border color to red when selected */
+}
+
+.correct {
+   /* border-color: green !important; */
+   border: 3px solid green !important;
+   /* Change the border color to green for the correct answer */
+}
+
+#goButton {
+   display: none;
+}
+
+#answerDiv {
+   display: none;
+}

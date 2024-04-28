@@ -27,7 +27,7 @@
          <div class="col-md-9 text-center">
             <form method="POST" action="/check_answer">
                {% for option in quiz_data['options'] %}
-               <button class="btn btn-base custom-button" type="submit" name="answer" value="{{ option }}" >{{ option }}</button>
+               <button class="btn btn-base custom-button" type="submit" name="answer" value="{{ option }}" onclick="handleButtonClick(this)">{{ option }}</button>
                {% endfor %}
             </form>
          </div>
@@ -36,10 +36,13 @@
 
    <div class="row justify-content-center mt-4">
       <div class="col-md-6 text-center">
-         <a href="{{ quiz_data['next-path'] }}" class="btn btn-base">GO</a>
+         <a href="{{ quiz_data['next-path'] }}" class="btn btn-accent" id="goButton">GO</a>
       </div>
    </div>
 
+   <div id="answerDiv" questionAnswer="{{ quiz_data['answer'] }}"></div>
+
+   <script src="../static/quiz_pattern.js"></script>
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

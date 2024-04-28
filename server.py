@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -383,8 +383,14 @@ def master_minutiae_home():
 # def solve_home():
 #     return render_template('solve_home.html')
 
-@app.route('/quiz_pattern/<int:question_num>')
+@app.route('/quiz_pattern/<int:question_num>', methods=['GET', 'POST'])
 def quiz_pattern(question_num):
+    if request.method == 'POST':
+        selected_answer = request.form.get('answer')
+        question_index = int(question_num) - 1
+        correct_answer = pattern_questions[question_num]['answer']
+        if selected_answer == correct_answer:
+            user_pattern_results[question_index] = 1
     if str(question_num) in pattern_questions:
         pattern_question = pattern_questions[str(question_num)]
         return render_template('quiz_pattern.html', quiz_data=pattern_question)
