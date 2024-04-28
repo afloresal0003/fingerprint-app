@@ -91,7 +91,7 @@ learn_arches_info = {
 
 learn_whorls_info = {
    "pattern_title": "WHORLS",
-   "type_description": "There are 3 special kinds of whorls we'll focus on. Move onto the next pattern when you feel you can tell the difference between each kind of whorl.",
+   "type_description": "There are 3 special kinds of whorls we'll focus on. Carry on when you feel you can tell the difference between each kind of whorl.",
    "subtypes_info": [{
          "subtype_title": "Plain Whorl",
          "subtype_images": ["https://www.forensicsciencesimplified.org/prints/img/Whorl.png", 

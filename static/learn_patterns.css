@@ -1,0 +1,76 @@
+body {
+   font-family: Georgia;
+}
+
+nav {
+   background-color: #EFEFEF;
+   border: 1px solid rgb(28, 28, 28);
+}
+
+.title {
+   font-weight: bold;
+}
+
+a {
+   color: black;
+   /* Default color */
+}
+
+a:hover {
+   color: black;
+   /* Color on hover */
+}
+
+.card {
+   border-radius: 45px;
+   border: 1.5px solid black;
+   width: 100%;
+}
+
+.card.hover-active:hover {
+   transform: scale(1.05);
+   transition: all 0.3s ease;
+   background-color: #FCE5CD;
+}
+
+.card.hover-active-no-color:hover {
+   transform: scale(1.05);
+   transition: all 0.3s ease;
+}
+
+
+.card img {
+   margin-top: 10px;
+   height: 200px;
+   width: 50%;
+}
+
+.green-outline {
+   border: 3.5px solid #28a745;
+}
+
+.card-locked {
+   background-color: #999999;
+   color: white;
+}
+
+.card-subtext {
+   font-style: italic;
+   color: black;
+}
+
+.btn-accent {
+   background-color: #FCE5CD;
+   border: 1px solid rgb(28, 28, 28);
+}
+
+.btn-base {
+   background-color: white;
+   border: 1px solid rgb(28, 28, 28);
+}
+
+.btn-locked {
+   background-color: #999999;
+   color: white;
+   border: 1px solid rgb(28, 28, 28);
+}
