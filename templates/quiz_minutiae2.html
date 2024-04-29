@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>MASTER: MINUTIAE</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../static/main.css">
+</head>
+
+<body>
+   <div class="container">
+      <h1 class="mt-5 mb-4 text-center"><strong>MASTER: MINUTIAE</strong></h1>
+      <h3 class="text-center mb-3">{{ quiz_question['id'] }}. {{ quiz_question['question'] }}</h3>
+      <div class="row justify-content-center">
+         <div class="col-md-4 text-center">
+            <img src="{{ quiz_question['image'] }}" class="img-fluid" alt="Minutiae Image">
+         </div>
+      </div>
+      <div class="row justify-content-center mt-4">
+         <div class="col-md-6 text-center">
+            <form id="answerForm" method="POST" action="/check_minutiae_answer2/{{ quiz_question['id'] }}">
+               <textarea id="answerTextArea" name="answer" class="form-control" rows="3" placeholder="Enter your answer (ex: 'stuff, stuff, stuff')"></textarea>
+               <button type="submit" id="submitButton" class="btn btn-base mt-3">GO</button>
+               <input type="hidden" name="correct_answer" value="{{ quiz_question['answer'] }}">
+               <!-- <input type="hidden" name="question_num" value="{{ quiz_question['id'] }}"> -->
+            </form>
+         </div>
+      </div>
+   </div>
+   <div class="row justify-content-center mt-4">
+      <div class="col-md-6 text-center">
+         <a href="{{ quiz_question['next-path'] }}" class="btn btn-accent mt-3" id="goButton">GO</a>
+      </div>
+   </div>
+   <script src="../static/quiz_minutiae2.js"></script>
+</body>
+
+</html>

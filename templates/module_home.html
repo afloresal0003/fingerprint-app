@@ -15,7 +15,7 @@
       </div>
       {% else %}
       <div
-         class="card hover-active text-center {% if card.card_title == 'Patterns' and patterns_green %}green-outline{% elif card.card_title == 'Minutiae' and minutiae_green %}green-outline{% endif %}">
+         class="card hover-active text-center {% if card.card_title == 'Patterns' and patterns_green %}green-outline{% elif card.card_title == 'Minutiae' and minutiae_green %}green-outline {% elif data.module_title == 'MASTER' and card.card_title == 'Patterns' and patternsMastered%}green-outline {% elif data.module_title == 'MASTER' and card.card_title == 'Minutiae' and minutiaeMastered%}green-outline {% endif %}">
          <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
          <div class="card-body">
             <a href="{{ card.href }}" class="stretched-link">

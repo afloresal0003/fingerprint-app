@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>MASTER: MINUTIAE</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../static/main.css">
+</head>
+
+<body>
+   <div class="container">
+      <h1 class="mt-5 mb-4 text-center"><strong>MASTER: MINUTIAE</strong></h1>
+      <h3 class="text-center mb-3">{{ quiz_question['id'] }}. {{ quiz_question['question'] }}</h3>
+      <div class="row justify-content-center">
+         <div class="col-md-4 text-center">
+            <img src="{{ quiz_question['image'] }}" class="img-fluid" alt="Minutiae Image">
+         </div>
+      </div>
+      <div class="row justify-content-center mt-4">
+         <div class="col-md-6 text-center">
+            <form id="answerForm" method="POST" action="/check_minutiae_answer3/{{ quiz_question['id'] }}">
+               <div class="form-group">
+                  <label for="answerA">A:</label>
+                  <input type="text" class="form-control" id="answerA" name="answer" placeholder="Enter answer A">
+               </div>
+               <div class="form-group">
+                  <label for="answerB">B:</label>
+                  <input type="text" class="form-control" id="answerB" name="answer" placeholder="Enter answer B">
+               </div>
+               <div class="form-group">
+                  <label for="answerC">C:</label>
+                  <input type="text" class="form-control" id="answerC" name="answer" placeholder="Enter answer C">
+               </div>
+               <div class="form-group">
+                  <label for="answerD">D:</label>
+                  <input type="text" class="form-control" id="answerD" name="answer" placeholder="Enter answer D">
+               </div>
+               <div class="form-group">
+                  <label for="answerE">E:</label>
+                  <input type="text" class="form-control" id="answerE" name="answer" placeholder="Enter answer E">
+               </div>
+               <div class="form-group">
+                  <label for="answerF">F:</label>
+                  <input type="text" class="form-control" id="answerF" name="answer" placeholder="Enter answer F">
+               </div>
+               <div class="form-group">
+                  <label for="answerG">G:</label>
+                  <input type="text" class="form-control" id="answerG" name="answer" placeholder="Enter answer G">
+               </div>
+               <button type="submit" id="submitButton" class="btn btn-base mt-3">GO</button>
+               <input type="hidden" name="correct_answer" value="{{ quiz_question['answer'] }}">
+            </form>
+         </div>
+      </div>
+   </div>
+   <div class="row justify-content-center mt-4">
+      <div class="col-md-6 text-center">
+         <a href="{{ quiz_question['next-path'] }}" class="btn btn-accent mt-3" id="goButton"
+            style="display: none;">GO</a>
+      </div>
+   </div>
+   <script src="../static/quiz_minutiae3.js"></script>
+</body>
+
+</html>

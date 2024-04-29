@@ -9,7 +9,7 @@
       {% if (card.href == "/master_home" and not master_clickable) or (card.href == "/solve_home" and not solve_clickable)%}
       <div class="card h-100 text-center card-locked">
       {% else %}
-      <div class="card hover-active h-100 text-center {% if learn_green and card.href == '/learn_home'%}green-outline{% endif %}">
+      <div class="card hover-active h-100 text-center {% if learn_green and card.href == '/learn_home'%}green-outline {% elif masterGreen and card.href == '/master_home'%}green-outline{% endif %}">
       {% endif %}
          {% if card.href == "/master_home" and not master_clickable%}
          <a class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>

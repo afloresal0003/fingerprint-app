@@ -46,22 +46,3 @@ function handleButtonClick(button) {
    };
    xhr.send(formData);
 }
-
-// function submitForm(button) {
-//    var selectedAnswer = button.value;
-//    var form = document.getElementById('answerForm');
-//    var formData = new FormData(form);
-//    formData.set('answer', selectedAnswer); // Add selected answer to form data
-
-//    var xhr = new XMLHttpRequest();
-//    xhr.open('POST', form.action, true);
-//    xhr.onload = function () {
-//       if (xhr.status === 200) {
-//          // Handle server response if needed
-//          console.log('Form submitted successfully');
-//       } else {
-//          console.error('Error submitting form');
-//       }
-//    };
-//    xhr.send(formData);
-// }

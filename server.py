@@ -267,19 +267,21 @@ minutiae_questions = {
 
     "1": {
         "id": "1",
-        "image": "./static/minutiae_quiz_q1.png",
+        "image": "../static/minutiae-quiz-q1.png",
         "question": "How many bifurcations are in this fingerprint?",
-        "answer": "5"
+        "answer": "5",
+        "next-path": "/quiz_minutiae/2"
     },
     "2": {
         "id": "2",
-        "image": "./static/minutiae_quiz_q2.png",
+        "image": "../static/minutiae-quiz-q2.png",
         "question": "Name 3 minutiae present in this fingerprint.",
-        "answer": ["bifurcation", "ridge ending", "island"]
+        "answer": ["bifurcation", "ridge ending", "island"],
+        "next-path": "/quiz_minutiae/3"
     },
     "3": {
         "id": "3",
-        "image": "./static/minutiae_quiz_q3.png",
+        "image": "../static/minutiae-quiz-q3.png",
         "question": "Label all letters with the appropriate minutiae.",
         "answer": {
             "A": "ridge ending",
@@ -289,13 +291,15 @@ minutiae_questions = {
             "E": "island",
             "F": "bifurcation",
             "G": "spur"
-        }
+        },
+        "next-path": "/quiz_minutiae/4"
     },
     "4": {
         "id": "4",
-        "image": "./static/minutiae_quiz_q4.png",
+        "image": "../static/minutiae-quiz-q4.png",
         "question": "What minutiae is this?",
-        "answer": "spur"
+        "answer": "spur",
+        "next-path": "/quiz_minutiae/results"
     }
 
 }
@@ -309,11 +313,12 @@ def index():
     master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     learn_green = visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls'] and visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending']
     solve_clickable = mastered_concepts['patterns'] and mastered_concepts['minutiae']
+    masterGreen = mastered_concepts['patterns'] and mastered_concepts['minutiae']
     patternCorrectAns = sum(user_pattern_results)
     numPatternQuestions = len(user_pattern_results)
     minutiaeCorrectAns = sum(user_minutiae_results)
     numMinutiaeQuestions = len(user_minutiae_results)
-    return render_template('index.html', patternCorrectAns=patternCorrectAns, numPatternQuestions=numPatternQuestions, minutiaeCorrectAns=minutiaeCorrectAns, numMinutiaeQuestions=numMinutiaeQuestions, homepage_card_info=homepage_card_info, master_clickable=master_clickable, learn_green=learn_green, solve_clickable=solve_clickable)
+    return render_template('index.html', patternCorrectAns=patternCorrectAns, numPatternQuestions=numPatternQuestions, minutiaeCorrectAns=minutiaeCorrectAns, numMinutiaeQuestions=numMinutiaeQuestions, homepage_card_info=homepage_card_info, master_clickable=master_clickable, learn_green=learn_green, solve_clickable=solve_clickable, masterGreen=masterGreen)
 
 @app.route('/learn_home')
 def learn_home():
@@ -387,7 +392,9 @@ def learn_ridge_ending():
 def master_home():
     master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     master_minutiae_clickable = (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
-    return render_template('module_home.html', master_minutiae_clickable=master_minutiae_clickable, master_clickable=master_clickable, data=master_homepage_info)
+    patternsMastered = mastered_concepts['patterns']
+    minutiaeMastered = mastered_concepts['minutiae']
+    return render_template('module_home.html', patternsMastered=patternsMastered, minutiaeMastered=minutiaeMastered, master_minutiae_clickable=master_minutiae_clickable, master_clickable=master_clickable, data=master_homepage_info)
 
 @app.route('/master_patterns_home')
 def master_patterns_home():
@@ -417,6 +424,8 @@ def check_pattern_answer(question_num):
     if selected_answer == correct_answer:
         # Update user_pattern_results
         user_pattern_results[question_num - 1] = 1  # Assuming indexing starts from 0
+    else:
+        user_pattern_results[question_num - 1] = 0  # Assuming indexing starts from 0
     is_correct = selected_answer == correct_answer
     # Return JSON response
     return jsonify({'is_correct': is_correct})
@@ -426,12 +435,100 @@ def quiz_pattern_results():
     correctAns = sum(user_pattern_results)
     numQuestions = len(user_pattern_results)
     resultsTitle = "MASTER: PATTERNS"
+    if correctAns == numQuestions:
+        mastered_concepts['patterns'] = True
     return render_template('quiz_results.html', resultsTitle=resultsTitle, numQuestions=numQuestions, correctAns=correctAns)
 
 @app.route('/quiz_minutiae/<question_num>', methods=['GET', 'POST'])
 def quiz_minutiae(question_num):
-    minutiae_question = minutiae_questions[str(question_num)]
-    return render_template('quiz_minutiae.html', quiz_question=minutiae_question)
+    if str(question_num) in minutiae_questions:
+      minutiae_question = minutiae_questions[str(question_num)]
+      if int(question_num) == 1 or int(question_num) == 4:
+         return render_template('quiz_minutiae1.html', quiz_question=minutiae_question)
+      if int(question_num) == 2:
+         return render_template('quiz_minutiae2.html', quiz_question=minutiae_question)
+      if int(question_num) == 3:
+         return render_template('quiz_minutiae3.html', quiz_question=minutiae_question)
+    else:
+        # Handle invalid question numbers
+        return "Question not found"
+    
+@app.route('/check_minutiae_answer/<int:question_num>', methods=['POST'])
+def check_minutiae_answer(question_num):
+    selected_answer = request.form.get('answer')
+    correct_answer = request.form.get('correct_answer')
+    
+    # Check if the selected answer matches the correct answer
+    if selected_answer == correct_answer:
+        # Update user_minutiae_results
+        user_minutiae_results[question_num - 1] = 1  # Assuming indexing starts from 0
+        return jsonify({'answer_status': 'correct'})
+    else:
+        user_minutiae_results[question_num - 1] = 0
+        return jsonify({'answer_status': 'incorrect'})
+
+@app.route('/check_minutiae_answer2/<int:question_num>', methods=['POST'])
+def check_minutiae_answer2(question_num):
+    user_answer = request.form.get('answer')
+    correct_answers = minutiae_questions[str(question_num)]['answer']
+    
+    # Split the user's answer into a list
+    user_answer_list = [answer.strip() for answer in user_answer.split(',')]
+    
+    # Check if the user's answer matches the correct answers
+    if set(user_answer_list).issubset(correct_answers):
+        # Update user_minutiae_results
+        user_minutiae_results[question_num - 1] = 1
+        return jsonify({'answer_status': 'correct'})
+    else:
+        # Update user_minutiae_results
+        user_minutiae_results[question_num - 1] = 0
+        return jsonify({'answer_status': 'incorrect'})
+    
+@app.route('/check_minutiae_answer3/<int:question_num>', methods=['POST'])
+def check_minutiae_answer3(question_num):
+    # Get the correct answers from the minutiae_questions dictionary
+    correct_answers = minutiae_questions[str(question_num)]['answer']
+    
+    # Get the user's answers from the form
+    user_answers = request.form.getlist('answer')
+
+    # Initialize a dictionary to store the correctness status of each answer
+    answer_status = {}
+
+    # Check each user answer against the correct answer
+    for i, user_answer in enumerate(user_answers):
+        # Get the letter corresponding to the input field
+        letter = chr(65 + i)  # A=65, B=66, ..., G=71
+        # Get the correct answer for this letter
+        correct_answer = correct_answers.get(letter, '').strip().lower()
+
+        # Check if the user answer matches the correct answer for this letter
+        if user_answer.strip().lower() == correct_answer:
+           answer_status[letter] = 'correct'
+        else:
+           answer_status[letter] = 'incorrect'
+
+    # Update user_minutiae_results based on correctness of each answer
+    if 'incorrect' in answer_status.values():
+        user_minutiae_results[question_num - 1] = 0
+    else:
+        user_minutiae_results[question_num - 1] = 1
+
+    # Return the answer status as JSON
+    return jsonify({'answer_status': answer_status})
+    
+@app.route('/quiz_minutiae/results')
+def quiz_minutiae_results():
+    correctAns = sum(user_minutiae_results)
+    numQuestions = len(user_minutiae_results)
+    resultsTitle = "MASTER: MINUTIAE"
+    if correctAns == numQuestions:
+        mastered_concepts['minutiae'] = True
+    else:
+        mastered_concepts['minutiae'] = False
+    return render_template('quiz_results2.html', resultsTitle=resultsTitle, numQuestions=numQuestions, correctAns=correctAns)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
