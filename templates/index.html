@@ -17,16 +17,45 @@
             <h5 class="card-title">{{ card.card_title }}</h5>
             <p class="card-text">{{ card.card_description }}</p>
             <br>
-            <p class="card-subtext">{{ card.card_context }}</p>
+            <p>Your Scores</p>
+            {% if patternCorrectAns == 7%}
+            <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+            {% else %}
+            <p class="card-subtext">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+            {% endif %}
+            {% if patternCorrectAns == 7%}
+            <p class="card-subtext title">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+            {% else %}
+            <p class="card-subtext">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+            {% endif %}
+         {% elif card.href == "/master_home" and  master_clickable%}
+         <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+         <div class="card-body">
+            <a href="{{ card.href }}" class="stretched-link">
+               <h5 class="card-title">{{ card.card_title }}</h5>
+            </a>
+            <p class="card-text">{{ card.card_description }}</p>
+            <br>
+            <p>Your Scores</p>
+            {% if patternCorrectAns == 7%}
+            <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+            {% else %}
+            <p class="card-subtext">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+            {% endif %}
+            {% if patternCorrectAns == 7%}
+            <p class="card-subtext title">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+            {% else %}
+            <p class="card-subtext">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+            {% endif %}
          </div>
-         {% elif card.href == "/solve_home" and not solve_clickable%}
+         <!-- {% elif card.href == "/solve_home" and not solve_clickable%}
          <a class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
          <div class="card-body">
             <h5 class="card-title">{{ card.card_title }}</h5>
             <p class="card-text">{{ card.card_description }}</p>
             <br>
             <p class="card-subtext">{{ card.card_context }}</p>
-         </div>
+         </div> -->
          {% else %}
          <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
          <div class="card-body">
@@ -35,7 +64,6 @@
             </a>
             <p class="card-text">{{ card.card_description }}</p>
             <br>
-            <p class="card-subtext">{{ card.card_context }}</p>
          </div>
          {% endif %}
       </div>

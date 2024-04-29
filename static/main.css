@@ -109,3 +109,6 @@ button:hover{
 #answerDiv {
    display: none;
 }
+#questionNum {
+   display: none;
+}

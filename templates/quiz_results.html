@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{{ resultsTitle }}</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="../static/main.css">
+</head>
+
+<body>
+   <div class="container">
+      <h1 class="mt-5 mb-4 text-center"><strong>{{ resultsTitle }}</strong></h1>
+      {% if correctAns <= 3 %}
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+               <img src="../static/bad.png" alt="Bad Result" class="img-fluid">
+            </div>
+         </div>
+         <h3 class="text-center mt-3">Uh oh! You scored a {{ correctAns }}/{{ numQuestions }}. Try again!</h3>
+      {% elif correctAns == 4 or correctAns == 5%} 
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+               <img src="../static/ok.png" alt="OK Result" class="img-fluid">
+            </div>
+         </div>
+         <h3 class="text-center mt-3">Keep it up! You scored a {{ correctAns }}/{{ numQuestions }}. Try again!</h3>
+      {% else %}
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+               <img src="../static/good.png" alt="Good Result" class="img-fluid">
+            </div>
+         </div>
+         <h3 class="text-center mt-3">Great job! You scored a {{ correctAns }}/{{ numQuestions }}.</h3>
+      {% endif %}
+      <div class="row justify-content-center mt-4">
+         <div class="col-md-6 text-center">
+            <a href="/" class="btn btn-accent">HOME</a>
+         </div>
+      </div>
+   </div>
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

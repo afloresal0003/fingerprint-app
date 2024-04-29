@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, redirect, url_for, request, jsonify
 
 app = Flask(__name__)
 
@@ -20,6 +20,15 @@ mastered_concepts = {
     'minutiae': False
 }
 
+'''SOLVE DATA:
+{
+        "href": "/solve_home",
+        "card_image": "https://cdn.icon-icons.com/icons2/3079/PNG/512/detective_crime_man_persona_vatar_icon_191245.png",
+        "card_title": "SOLVE",
+        "card_description": "Use what you learned to crack the case!",
+        "card_context": "Unlocks after perfect scores in MASTER"
+    }
+'''
 #Page Content Datasets
 homepage_card_info = [
     {
@@ -35,13 +44,6 @@ homepage_card_info = [
         "card_title": "MASTER",
         "card_description": "Test your knowledge!",
         "card_context": "Perfect scores = concept mastery!"
-    },
-    {
-        "href": "/solve_home",
-        "card_image": "https://cdn.icon-icons.com/icons2/3079/PNG/512/detective_crime_man_persona_vatar_icon_191245.png",
-        "card_title": "SOLVE",
-        "card_description": "Use what you learned to crack the case!",
-        "card_context": "Unlocks after perfect scores in MASTER"
     }
 ]
 
@@ -230,7 +232,7 @@ pattern_questions = {
         "id": "4",
         "image": "../static/accidental-whorl.png",
         "question": "What pattern is this?",
-        "options": ["Plain Whorl", "Central Pocket Whorl", "Accidental Whorl"],
+        "options": ["Plain Loop", "Tented Arch", "Accidental Whorl"],
         "answer": "Accidental Whorl",
         "next-path": "/quiz_pattern/5"
     },
@@ -256,7 +258,7 @@ pattern_questions = {
         "question": "What pattern is this?",
         "options": ["Plain Whorl", "Plain Loop", "Central Pocket Whorl"],
         "answer": "Plain Loop",
-        "next-path": "/quiz_results"
+        "next-path": "/quiz_pattern/results"
     }
 
 }
@@ -307,90 +309,98 @@ def index():
     master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     learn_green = visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls'] and visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending']
     solve_clickable = mastered_concepts['patterns'] and mastered_concepts['minutiae']
-    return render_template('index.html', homepage_card_info=homepage_card_info, master_clickable=master_clickable, learn_green=learn_green, solve_clickable=solve_clickable)
+    patternCorrectAns = sum(user_pattern_results)
+    numPatternQuestions = len(user_pattern_results)
+    minutiaeCorrectAns = sum(user_minutiae_results)
+    numMinutiaeQuestions = len(user_minutiae_results)
+    return render_template('index.html', patternCorrectAns=patternCorrectAns, numPatternQuestions=numPatternQuestions, minutiaeCorrectAns=minutiaeCorrectAns, numMinutiaeQuestions=numMinutiaeQuestions, homepage_card_info=homepage_card_info, master_clickable=master_clickable, learn_green=learn_green, solve_clickable=solve_clickable)
 
 @app.route('/learn_home')
 def learn_home():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     patterns_green = visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']
     minutiae_green = visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending']
-    return render_template('module_home.html', data=learn_homepage_info, patterns_green=patterns_green, minutiae_green=minutiae_green)
+    return render_template('module_home.html', master_clickable=master_clickable, data=learn_homepage_info, patterns_green=patterns_green, minutiae_green=minutiae_green)
 
 @app.route('/learn_patterns')
 def learn_patterns():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_patterns'] = True
     loops_green = visited_routes['learn_loops']
     arches_green = visited_routes['learn_arches']
     whorls_green = visited_routes['learn_whorls']
-    return render_template('learn_patterns.html', loops_green=loops_green, arches_green=arches_green, whorls_green=whorls_green)
+    return render_template('learn_patterns.html', master_clickable=master_clickable, loops_green=loops_green, arches_green=arches_green, whorls_green=whorls_green)
 
 @app.route('/learn_loops')
 def learn_loops():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_loops'] = True
-    return render_template('learn_pattern_layout.html', data=learn_loops_info)
+    return render_template('learn_pattern_layout.html', master_clickable=master_clickable, data=learn_loops_info)
 
 @app.route('/learn_whorls')
 def learn_whorls():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_whorls'] = True
-    return render_template('learn_pattern_layout.html', data=learn_whorls_info)
+    return render_template('learn_pattern_layout.html', master_clickable=master_clickable, data=learn_whorls_info)
 
 @app.route('/learn_arches')
 def learn_arches():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_arches'] = True
-    return render_template('learn_pattern_layout.html', data=learn_arches_info)
+    return render_template('learn_pattern_layout.html', master_clickable=master_clickable, data=learn_arches_info)
 
 @app.route('/learn_minutiae')
 def learn_minutiae():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_minutiae'] = True
     bifurcation_green = visited_routes['learn_bifurcation']
     spur_green = visited_routes['learn_spur']
     island_green = visited_routes['learn_island']
     ending_green = visited_routes['learn_ridge_ending']
-    return render_template('learn_minutiae.html', bifurcation_green=bifurcation_green, spur_green=spur_green, island_green=island_green, ending_green=ending_green)
+    return render_template('learn_minutiae.html', master_clickable=master_clickable, bifurcation_green=bifurcation_green, spur_green=spur_green, island_green=island_green, ending_green=ending_green)
 
 @app.route('/learn_bifurcation')
 def learn_bifurcation():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_bifurcation'] = True
-    return render_template('learn_minutiae_layout.html', data=learn_bifurcation_info)
+    return render_template('learn_minutiae_layout.html', master_clickable=master_clickable, data=learn_bifurcation_info)
 
 @app.route('/learn_spur')
 def learn_spur():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_spur'] = True
-    return render_template('learn_minutiae_layout.html', data=learn_spur_info)
+    return render_template('learn_minutiae_layout.html', master_clickable=master_clickable, data=learn_spur_info)
 
 @app.route('/learn_island')
 def learn_island():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_island'] = True
-    return render_template('learn_minutiae_layout.html', data=learn_island_info)
+    return render_template('learn_minutiae_layout.html', master_clickable=master_clickable, data=learn_island_info)
 
 @app.route('/learn_ridge_ending')
 def learn_ridge_ending():
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
     visited_routes['learn_ridge_ending'] = True
-    return render_template('learn_minutiae_layout.html', data=learn_ridge_ending_info)
+    return render_template('learn_minutiae_layout.html', master_clickable=master_clickable, data=learn_ridge_ending_info)
 
 @app.route('/master_home')
 def master_home():
-    return render_template('module_home.html', data=master_homepage_info)
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
+    master_minutiae_clickable = (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
+    return render_template('module_home.html', master_minutiae_clickable=master_minutiae_clickable, master_clickable=master_clickable, data=master_homepage_info)
 
 @app.route('/master_patterns_home')
 def master_patterns_home():
-    return render_template('master_transition_screen.html', data=master_patterns_transition_info)
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
+    return render_template('master_transition_screen.html', master_clickable=master_clickable, data=master_patterns_transition_info)
 
 @app.route('/master_minutiae_home')
 def master_minutiae_home():
-    return render_template('master_transition_screen.html', data=master_minutiae_transition_info)
-
-# @app.route('/solve_home')
-# def solve_home():
-#     return render_template('solve_home.html')
+    master_clickable = (visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls']) or (visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending'])
+    return render_template('master_transition_screen.html', master_clickable=master_clickable, data=master_minutiae_transition_info)
 
 @app.route('/quiz_pattern/<int:question_num>', methods=['GET', 'POST'])
 def quiz_pattern(question_num):
-    if request.method == 'POST':
-        selected_answer = request.form.get('answer')
-        question_index = int(question_num) - 1
-        correct_answer = pattern_questions[question_num]['answer']
-        if selected_answer == correct_answer:
-            user_pattern_results[question_index] = 1
     if str(question_num) in pattern_questions:
         pattern_question = pattern_questions[str(question_num)]
         return render_template('quiz_pattern.html', quiz_data=pattern_question)
@@ -398,7 +408,18 @@ def quiz_pattern(question_num):
         # Handle invalid question numbers
         return "Question not found"
 
-#ADD POST INFORMATION TO RECEIVE WHETHER THE ANSWER IS CORRECT OR NOT
+@app.route('/check_pattern_answer/<int:question_num>', methods=['POST'])
+def check_pattern_answer(question_num):
+    selected_answer = request.form.get('answer')
+    correct_answer = request.form.get('correct_answer')
+
+    # Compare selected answer with correct answer
+    if selected_answer == correct_answer:
+        # Update user_pattern_results
+        user_pattern_results[question_num - 1] = 1  # Assuming indexing starts from 0
+    is_correct = selected_answer == correct_answer
+    # Return JSON response
+    return jsonify({'is_correct': is_correct})
 
 @app.route('/quiz_minutiae/<question_num>')
 def quiz_minutiae(question_num):
@@ -406,9 +427,11 @@ def quiz_minutiae(question_num):
     return render_template('quiz_minutiae.html', quiz_question=minutiae_question)
 
 @app.route('/quiz_pattern/results')
-def quiz_results():
-    quiz_results = sum(pattern_answers)
-    return render_template('quiz_results.html', quiz_results=quiz_results)
+def quiz_pattern_results():
+    correctAns = sum(user_pattern_results)
+    numQuestions = len(user_pattern_results)
+    resultsTitle = "MASTER: PATTERNS"
+    return render_template('quiz_results.html', resultsTitle=resultsTitle, numQuestions=numQuestions, correctAns=correctAns)
 
 
 

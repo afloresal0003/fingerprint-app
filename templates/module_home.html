@@ -6,16 +6,24 @@
 <div class="row justify-content-center mt-4">
    {% for card in data.card_info %}
    <div class="col-md-3">
+      {% if card.href == '/master_minutiae_home' and not master_minutiae_clickable %}
+      <div class="card text-center card-locked">
+         <a class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
+         <div class="card-body">
+            <h5 class="card-title">{{ card.card_title }}</h5>
+         </div>
+      </div>
+      {% else %}
       <div
          class="card hover-active text-center {% if card.card_title == 'Patterns' and patterns_green %}green-outline{% elif card.card_title == 'Minutiae' and minutiae_green %}green-outline{% endif %}">
-         <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}"
-               alt="{{ card.card_title }}"></a>
+         <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
          <div class="card-body">
             <a href="{{ card.href }}" class="stretched-link">
                <h5 class="card-title">{{ card.card_title }}</h5>
             </a>
          </div>
       </div>
+      {% endif %}
    </div>
    {% endfor %}
 </div>

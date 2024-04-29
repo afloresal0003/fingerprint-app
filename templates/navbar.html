@@ -19,10 +19,11 @@
                <a class="navbar-option" href="/learn_home">Learn</a>
             </div>
             <div class="col">
+               {% if master_clickable %}
                <a class="navbar-option" href="/master_home">Master</a>
-            </div>
-            <div class="col">
-               <a class="navbar-option" href="/solve_home">Solve</a>
+               {% else %}
+               <span class="navbar-option disabled">Master</span>
+               {% endif %}
             </div>
          </div>
       </div>
