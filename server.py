@@ -122,7 +122,7 @@ learn_whorls_info = {
 
 learn_bifurcation_info = {
     "minutiae_title": "BIFURCATION",
-    "minutiae_images": ["https://www.researchgate.net/publication/342419519/figure/fig1/AS:908189398749185@1593540634677/Typical-Fingerprint-Features-Termination-and-Bifurcation-points.jpg", "https://www.mdpi.com/sensors/sensors-24-00664/article_deploy/html/images/sensors-24-00664-g002-550.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFDcmVBrwLtA-yB-Zh_20h62LiwBbLqKo-nMyxnr_i3wcB47ZbhmJR_B8SFV7S4VUfnUY&usqp=CAU"],
+    "minutiae_images": ["../static/bifurcation-temp.png", "https://www.mdpi.com/sensors/sensors-24-00664/article_deploy/html/images/sensors-24-00664-g002-550.jpg", "https://kb.supremainc.com/knowledge/lib/exe/fetch.php?media=en:bifurcation_en.png"],
     "minutiae_description": "A fingerprint bifurcation is characterized by a single ridge dividing into two separate ridges, resembling a Y-shaped split within the fingerprint pattern.",
     "next_minutiae": "SPUR",
     "prev_href": "/learn_minutiae",
@@ -131,7 +131,7 @@ learn_bifurcation_info = {
 
 learn_spur_info = {
     "minutiae_title": "SPUR",
-    "minutiae_images": ["https://accessdl.state.al.us/AventaCourses/access_courses/forensic_sci_ua_v22/03_unit/03-05/images/spur_oldcourse.jpg", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlSWfpqiV6qVA52AXHEpRdy0B51DD1JYi7-y7iolLTdA&s", "https://image.slidesharecdn.com/fingerprintsandridgecharacteristics-160307185226/85/fingerprints-and-ridge-characteristics-21-320.jpg"],
+    "minutiae_images": ["https://accessdl.state.al.us/AventaCourses/access_courses/forensic_sci_ua_v22/03_unit/03-05/images/spur_oldcourse.jpg", "../static/spur-temp.png", "https://image.slidesharecdn.com/fingerprintsandridgecharacteristics-160307185226/85/fingerprints-and-ridge-characteristics-21-320.jpg"],
     "minutiae_description": "A fingerprint spur is characterized by a ridge that branches off from the main ridge and reconnects or ends after a short distance, resembling a small protrusion or spur along the ridge pattern.",
     "next_minutiae": "ISLAND",
     "prev_href": "/learn_minutiae",
@@ -140,7 +140,7 @@ learn_spur_info = {
 
 learn_island_info = {
     "minutiae_title": "ISLAND",
-    "minutiae_images": ["https://accessdl.state.al.us/AventaCourses/access_courses/forensic_sci_ua_v22/03_unit/03-05/images/shortridge_oldcourse.jpg", "https://image.slidesharecdn.com/fingerprintsandridgecharacteristics-160307185226/85/fingerprints-and-ridge-characteristics-18-320.jpg", "https://cdn.imgbin.com/18/4/11/imgbin-automated-fingerprint-identification-minutiae-biometrics-ridge-island-finger-touch-MZaPQp0ShZs2Bm7H1upbSJmK8.jpg"],
+    "minutiae_images": ["https://accessdl.state.al.us/AventaCourses/access_courses/forensic_sci_ua_v22/03_unit/03-05/images/shortridge_oldcourse.jpg", "https://image.slidesharecdn.com/fingerprintsandridgecharacteristics-160307185226/85/fingerprints-and-ridge-characteristics-18-320.jpg", "../static/island-temp.png"],
     "minutiae_description": "A fingerprint island is characterized by a small area within the fingerprint where the ridge structure is surrounded by two or more diverging ridges, resembling an isolated island amidst the surrounding ridges.",
     "next_minutiae": "RIDGE ENDING",
     "prev_href": "/learn_minutiae",
@@ -421,11 +421,6 @@ def check_pattern_answer(question_num):
     # Return JSON response
     return jsonify({'is_correct': is_correct})
 
-@app.route('/quiz_minutiae/<question_num>')
-def quiz_minutiae(question_num):
-    minutiae_question = minutiae_questions[str(question_num)]
-    return render_template('quiz_minutiae.html', quiz_question=minutiae_question)
-
 @app.route('/quiz_pattern/results')
 def quiz_pattern_results():
     correctAns = sum(user_pattern_results)
@@ -433,7 +428,10 @@ def quiz_pattern_results():
     resultsTitle = "MASTER: PATTERNS"
     return render_template('quiz_results.html', resultsTitle=resultsTitle, numQuestions=numQuestions, correctAns=correctAns)
 
-
+@app.route('/quiz_minutiae/<question_num>', methods=['GET', 'POST'])
+def quiz_minutiae(question_num):
+    minutiae_question = minutiae_questions[str(question_num)]
+    return render_template('quiz_minutiae.html', quiz_question=minutiae_question)
 
 if __name__ == '__main__':
     app.run(debug=True)

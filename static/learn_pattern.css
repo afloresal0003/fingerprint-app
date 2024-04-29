@@ -67,10 +67,6 @@ a:hover {
    /* Maintain aspect ratio */
 }
 
-.carousel-item:hover img {
-   transform: scale(2.1);
-} */
-
 .image-zoom-container {
    overflow: hidden;
 }

@@ -17,7 +17,7 @@
             <h5 class="card-title">{{ card.card_title }}</h5>
             <p class="card-text">{{ card.card_description }}</p>
             <br>
-            <p>Your Scores</p>
+            <p class="card-subtext">Your Scores</p>
             {% if patternCorrectAns == 7%}
             <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
             {% else %}
@@ -36,7 +36,7 @@
             </a>
             <p class="card-text">{{ card.card_description }}</p>
             <br>
-            <p>Your Scores</p>
+            <p class="card-subtext">Your Scores</p>
             {% if patternCorrectAns == 7%}
             <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
             {% else %}
