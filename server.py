@@ -210,7 +210,7 @@ pattern_questions = {
         "id": "1",
         "image": "../static/central.png",
         "question": "What pattern is this?",
-        "options": ["Plain Whorl", "Tented Arch", "Central Pocket Whorl"],
+        "options": ["Plain Whorl", "Plain Loop", "Central Pocket Whorl"],
         "answer": "Central Pocket Whorl",
         "next-path": "/quiz_pattern/2"
     },
@@ -218,7 +218,7 @@ pattern_questions = {
         "id": "2",
         "image": "https://academyofhandanalysis.org/wp-content/uploads/2010/08/T_arch11-150x150.jpg",
         "question": "What pattern is this?",
-        "options": ["Plain Arch", "Tented Arch", "Plain Loop"],
+        "options": ["Plain Arch", "Tented Arch", "Accidental Whorl"],
         "answer": "Tented Arch",
         "next-path": "/quiz_pattern/3"
     },
@@ -226,7 +226,7 @@ pattern_questions = {
         "id": "3",
         "image": "https://1.bp.blogspot.com/-FLrixNxiK0s/XfCiYFaCV4I/AAAAAAAAWJQ/lMp7-jeRkIoyKkJaXIJAI4yM5x3vA3_igCLcBGAsYHQ/s320/Picture1.png",
         "question": "What pattern is this?",
-        "options": ["Accidental Whorl", "Double Loop", "Central Pocket Whorl"],
+        "options": ["Accidental Whorl", "Double Loop", "Plain Loop"],
         "answer": "Double Loop",
         "next-path": "/quiz_pattern/4"
     },
@@ -234,7 +234,7 @@ pattern_questions = {
         "id": "4",
         "image": "../static/accidental-whorl.png",
         "question": "What pattern is this?",
-        "options": ["Plain Loop", "Tented Arch", "Accidental Whorl"],
+        "options": ["Plain Whorl", "Tented Arch", "Accidental Whorl"],
         "answer": "Accidental Whorl",
         "next-path": "/quiz_pattern/5"
     },
@@ -271,7 +271,7 @@ minutiae_questions = {
         "id": "1",
         "image": "../static/minutiae-quiz-q1.png",
         "question": "How many bifurcations are in this fingerprint?",
-        "answer": "5",
+        "answer": "4",
         "next-path": "/quiz_minutiae/2"
     },
     "2": {
