@@ -12,7 +12,9 @@ visited_routes = {
     'learn_bifurcation': False,
     'learn_spur': False,
     'learn_island': False,
-    'learn_ridge_ending': False
+    'learn_ridge_ending': False,
+    'master_patterns': False,
+    'master_minutiae': False
 }
 
 mastered_concepts = {
@@ -314,11 +316,13 @@ def index():
     learn_green = visited_routes['learn_loops'] and visited_routes['learn_arches'] and visited_routes['learn_whorls'] and visited_routes['learn_bifurcation'] and visited_routes['learn_spur'] and visited_routes['learn_island'] and visited_routes['learn_ridge_ending']
     solve_clickable = mastered_concepts['patterns'] and mastered_concepts['minutiae']
     masterGreen = mastered_concepts['patterns'] and mastered_concepts['minutiae']
+    hasPatternScore = visited_routes['master_patterns'] 
+    hasMinutiaeScore = visited_routes['master_minutiae']
     patternCorrectAns = sum(user_pattern_results)
     numPatternQuestions = len(user_pattern_results)
     minutiaeCorrectAns = sum(user_minutiae_results)
     numMinutiaeQuestions = len(user_minutiae_results)
-    return render_template('index.html', patternCorrectAns=patternCorrectAns, numPatternQuestions=numPatternQuestions, minutiaeCorrectAns=minutiaeCorrectAns, numMinutiaeQuestions=numMinutiaeQuestions, homepage_card_info=homepage_card_info, master_clickable=master_clickable, learn_green=learn_green, solve_clickable=solve_clickable, masterGreen=masterGreen)
+    return render_template('index.html', hasPatternScore=hasPatternScore, hasMinutiaeScore=hasMinutiaeScore, patternCorrectAns=patternCorrectAns, numPatternQuestions=numPatternQuestions, minutiaeCorrectAns=minutiaeCorrectAns, numMinutiaeQuestions=numMinutiaeQuestions, homepage_card_info=homepage_card_info, master_clickable=master_clickable, learn_green=learn_green, solve_clickable=solve_clickable, masterGreen=masterGreen)
 
 @app.route('/learn_home')
 def learn_home():
@@ -417,6 +421,7 @@ def quiz_pattern(question_num):
 
 @app.route('/check_pattern_answer/<int:question_num>', methods=['POST'])
 def check_pattern_answer(question_num):
+    visited_routes['master_patterns'] = True
     selected_answer = request.form.get('answer')
     correct_answer = request.form.get('correct_answer')
 
@@ -455,6 +460,7 @@ def quiz_minutiae(question_num):
     
 @app.route('/check_minutiae_answer/<int:question_num>', methods=['POST'])
 def check_minutiae_answer(question_num):
+    visited_routes['master_minutiae'] = True
     selected_answer = request.form.get('answer')
     correct_answer = request.form.get('correct_answer')
     

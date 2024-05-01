@@ -17,16 +17,24 @@
             <h5 class="card-title">{{ card.card_title }}</h5>
             <p class="card-text">{{ card.card_description }}</p>
             <br>
-            <p class="card-subtext">Your Scores</p>
-            {% if patternCorrectAns == 7%}
-            <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+            {% if hasPatternScore or hasMinutiaeScore%}
+               <p class="card-subtext">Your Scores</p>
+               {% if hasPatternScore %}
+                  {% if patternCorrectAns == numPatternQuestions%}
+                  <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+                  {% else %}
+                  <p class="card-subtext">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+                  {% endif %}
+               {% endif %}
+               {% if hasMinutiaeScore%}
+                  {% if minutiaeCorrectAns == numMinutiaeQuestions%}
+                  <p class="card-subtext title">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+                  {% else %}
+                  <p class="card-subtext">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+                  {% endif %}
+               {% endif %}
             {% else %}
-            <p class="card-subtext">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
-            {% endif %}
-            {% if patternCorrectAns == 7%}
-            <p class="card-subtext title">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
-            {% else %}
-            <p class="card-subtext">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+               <p class="card-subtext">Unlocked after learning new concept!</p>
             {% endif %}
          {% elif card.href == "/master_home" and  master_clickable%}
          <a href="{{ card.href }}" class="stretched-link"><img src="{{ card.card_image }}" alt="{{ card.card_title }}"></a>
@@ -36,16 +44,24 @@
             </a>
             <p class="card-text">{{ card.card_description }}</p>
             <br>
-            <p class="card-subtext">Your Scores</p>
-            {% if patternCorrectAns == 7%}
-            <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+            {% if hasPatternScore or hasMinutiaeScore%}
+               <p class="card-subtext">Your Scores</p>
+               {% if hasPatternScore%}
+                  {% if patternCorrectAns == numPatternQuestions%}
+                  <p class="card-subtext title">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}} :D</p>
+                  {% else %}
+                  <p class="card-subtext">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
+                  {% endif %}
+               {% endif %}
+               {% if hasMinutiaeScore%}
+                  {% if minutiaeCorrectAns == numMinutiaeQuestions%}
+                  <p class="card-subtext title">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}} :D</p>
+                  {% else %}
+                  <p class="card-subtext">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+                  {% endif %}
+               {% endif %}
             {% else %}
-            <p class="card-subtext">Patterns: {{ patternCorrectAns }}/{{ numPatternQuestions}}</p>
-            {% endif %}
-            {% if patternCorrectAns == 7%}
-            <p class="card-subtext title">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
-            {% else %}
-            <p class="card-subtext">Minutiae: {{ minutiaeCorrectAns }}/{{ numMinutiaeQuestions}}</p>
+               <p class="card-subtext">Scores will show up here:</p>
             {% endif %}
          </div>
          <!-- {% elif card.href == "/solve_home" and not solve_clickable%}
