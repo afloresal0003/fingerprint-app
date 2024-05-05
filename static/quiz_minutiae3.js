@@ -34,6 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // Hide submit button and show 'GO' button
             submitButton.classList.add('d-none');
             goButton.style.display = 'inline-block';
+            // Disable all text inputs
+            answerInputs.forEach(function (input) {
+               input.disabled = true;
+            });
          } else {
             console.error('Error submitting form');
          }

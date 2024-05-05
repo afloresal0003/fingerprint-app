@@ -19,7 +19,7 @@
 
       <div class="row justify-content-center">
          <div class="col-md-4 text-center">
-            <img src="{{ quiz_data['image'] }}" class="img-fluid" alt="Pattern Image">
+            <img src="{{ quiz_data['image'] }}" class="fixed-image-size" alt="Pattern Image">
          </div>
       </div>
 
@@ -27,7 +27,8 @@
          <div class="col-md-9 text-center">
             <form id="answerForm" method="POST" action="/check_pattern_answer/{{ quiz_data['id'] }}">
                {% for option in quiz_data['options'] %}
-               <button class="btn btn-base custom-button" type="submit" name="answer" value="{{ option }}" onclick="handleButtonClick(this)">{{ option }}</button>
+               <button class="btn btn-base custom-button" type="submit" name="answer" value="{{ option }}"
+                  onclick="handleButtonClick(this)">{{ option }}</button>
                {% endfor %}
                <input type="hidden" name="correct_answer" value="{{ quiz_data['answer'] }}">
                <input type="hidden" name="question_num" value="{{ quiz_data['id'] }}">

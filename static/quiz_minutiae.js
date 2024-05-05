@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
    const form = document.getElementById('answerForm');
    const goButton = document.getElementById('goButton');
    const submitButton = document.getElementById('submitButton');
+   const textInput = document.getElementById('answerTextArea');
 
 
    form.addEventListener('submit', function (event) {
@@ -27,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
                submitButton.classList.add('d-none'); // Hide submit button
                document.getElementById('goButton').style.display = 'inline-block'; /* Show the 'GO' button */
             }
+            // Disable the textarea
+            textInput.disabled = true;
          } else {
             console.error('Error submitting form');
          }

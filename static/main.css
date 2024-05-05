@@ -112,3 +112,9 @@ button:hover{
 #questionNum {
    display: none;
 }
+.fixed-image-size {
+   width: 300px;
+   /* Adjust the width as needed */
+   height: auto;
+   /* Maintain aspect ratio */
+}

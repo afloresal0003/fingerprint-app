@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Check if the input is a valid comma-separated list with exactly 3 items
       if (answerList.length !== 3 || answerList.some(item => item === '')) {
-         answerTextArea.classList.add('border-danger'); // Make the text area border red
+         answerTextArea.classList.add('border-warning'); // Make the text area border red
+         alert("Answer must be in 'XXX, XXX, XXX' form!")
          return; // Exit early if the input is not valid
       }
 
@@ -25,6 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
       xhr.onload = function () {
          if (xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
+            if (answerTextArea.classList.contains('border-warning')) {
+               answerTextArea.classList.remove('border-warning');
+            }
             if (response.answer_status === 'correct') {
                // Update UI to indicate correct answer
                answerTextArea.classList.add('border-success');
@@ -36,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                submitButton.classList.add('d-none'); // Hide submit button
                goButton.style.display = 'inline-block'; // Show the 'GO' button
             }
+            answerTextArea.disabled = true;
          } else {
             console.error('Error submitting form');
          }
